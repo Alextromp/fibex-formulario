@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibex - Aceptación de Promoción</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0033a0 0%, #0066cc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            color: #0033a0;
+            font-weight: 800;
+        }
+
+        .logo h1 span {
+            color: #ffcc00;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+            margin-left: 2px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border 0.3s;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            border-color: #0033a0;
+            outline: none;
+            background: white;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: #0033a0;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            background: #002277;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,51,160,0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .footer-text strong {
+            color: #0033a0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ffcc00;
+            color: #0033a0;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            display: none;
+            background: #fee;
+            color: #c0392b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-left: 4px solid #c0392b;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .success-message .icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+
+        .success-message h2 {
+            color: #27ae60;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 25px 20px; }
+            .logo h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="formContainer">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <h1>FIBEX<span>+</span></h1>
+            <p>Confirma tu interés en la promoción</p>
+        </div>
+
+        <div class="badge">🎁 OFERTA ESPECIAL</div>
+
+        <!-- FORMULARIO -->
+        <form id="promoForm" action="https://formsubmit.co/tromp.admicc14@gmail.com" method="POST">
+
+            <!-- Campos ocultos para prevenir spam y redirección -->
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_next" value="https://tromp-electronics.github.io/fibex-formulario/?success=1">
+
+            <!-- Campos ocultos con datos del cliente (se llenan desde la URL) -->
+            <input type="hidden" name="cliente_nombre" id="clienteNombre" value="">
+            <input type="hidden" name="cliente_telefono" id="clienteTelefono" value="">
+            <input type="hidden" name="cliente_sector" id="clienteSector" value="">
+            <input type="hidden" name="cliente_servicio" id="clienteServicio" value="">
+
+            <!-- 1. CORREO ELECTRÓNICO (OBLIGATORIO) -->
+            <div class="form-group">
+                <label>✉️ Correo electrónico <span class="required">*</span></label>
+                <input type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <!-- 2. CÉDULA (OPCIONAL) -->
+            <div class="form-group">
+                <label>🆔 Cédula <span style="color:#888;font-weight:400;">(opcional)</span></label>
+                <input type="text" name="cedula" id="cedula" placeholder="V-12345678">
+                <div class="hint">Puedes dejarlo en blanco si prefieres</div>
+            </div>
+
+            <!-- 3. UBICACIÓN (OPCIONAL) -->
+            <div class="form-group">
+                <label>📍 Ubicación <span style="color:#888;font-weight:400;">(opcional)</span></label>
+                <input type="text" name="ubicacion" id="ubicacion" placeholder="Ej: Valencey, calle 1, casa 18">
+                <div class="hint">Comparte tu ubicación por WhatsApp o escríbela aquí</div>
+            </div>
+
+            <!-- BOTÓN DE ENVÍO -->
+            <button type="submit" class="btn-submit" id="submitBtn">✅ ¡Sí, acepto la promoción!</button>
+
+            <!-- MENSAJE DE ERROR -->
+            <div class="error-message" id="errorMessage">⚠️ Por favor completa los campos obligatorios.</div>
+
+        </form>
+
+        <div class="footer-text">
+            Al enviar, aceptas que <strong>Fibex</strong> use tus datos para contactarte.<br>
+            Recibirás un correo de confirmación en los próximos minutos.
+        </div>
+
+        <!-- MENSAJE DE ÉXITO -->
+        <div class="success-message" id="successMessage">
+            <div class="icon">🎉</div>
+            <h2>¡Gracias por confiar en Fibex!</h2>
+            <p>Hemos recibido tu aceptación. En los próximos minutos un asesor se pondrá en contacto contigo para formalizar tu cambio.</p>
+            <br>
+            <p style="font-size:13px;color:#888;">📧 Se ha enviado una notificación a nuestro equipo.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // 1. CAPTURAR DATOS DEL CLIENTE DESDE LA URL
+        // ============================================================
+
+        function getParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                nombre: params.get('nombre') || '',
+                telefono: params.get('telefono') || '',
+                sector: params.get('sector') || '',
+                servicio: params.get('servicio') || ''
+            };
+        }
+
+        const cliente = getParams();
+
+        // Llenar campos ocultos
+        if (cliente.nombre) document.getElementById('clienteNombre').value = cliente.nombre;
+        if (cliente.telefono) document.getElementById('clienteTelefono').value = cliente.telefono;
+        if (cliente.sector) document.getElementById('clienteSector').value = cliente.sector;
+        if (cliente.servicio) document.getElementById('clienteServicio').value = cliente.servicio;
+
+        // Mostrar en consola (para depuración)
+        console.log('📋 Cliente precargado:', cliente);
+
+        // ============================================================
+        // 2. VALIDACIÓN DEL FORMULARIO
+        // ============================================================
+
+        const form = document.getElementById('promoForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMsg = document.getElementById('errorMessage');
+        const successMsg = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            // Validar correo
+            const correo = document.getElementById('correo').value.trim();
+            if (!correo) {
+                e.preventDefault();
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = '⚠️ El correo electrónico es obligatorio.';
+                document.getElementById('correo').focus();
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(correo)) {
+                e.preventDefault();
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = '⚠️ Ingresa un correo electrónico válido (ejemplo@correo.com).';
+                document.getElementById('correo').focus();
+                return;
+            }
+
+            // Ocultar error y mostrar carga
+            errorMsg.style.display = 'none';
+            submitBtn.textContent = '⏳ Enviando...';
+            submitBtn.classList.add('loading');
+        });
+
+        // Ocultar mensaje de error al escribir
+        document.getElementById('correo').addEventListener('input', function() {
+            errorMsg.style.display = 'none';
+        });
+
+        document.getElementById('cedula').addEventListener('input', function() {
+            errorMsg.style.display = 'none';
+        });
+
+        // ============================================================
+        // 3. DETECTAR ENVÍO EXITOSO
+        // ============================================================
+
+        window.addEventListener('load', function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('success') === '1') {
+                document.getElementById('promoForm').style.display = 'none';
+                document.querySelector('.badge').style.display = 'none';
+                document.querySelector('.footer-text').style.display = 'none';
+                successMsg.style.display = 'block';
+            }
+        });
+
+        console.log('🚀 Formulario Fibex cargado correctamente');
+    </script>
+
+</body>
+</html>
