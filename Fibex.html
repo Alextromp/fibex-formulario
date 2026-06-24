@@ -195,7 +195,6 @@
             min-width: 80px;
         }
 
-        /* Enfoque automático en el campo de correo */
         .campo-correo {
             scroll-margin-top: 20px;
         }
@@ -218,7 +217,7 @@
 
         <div class="badge">🎁 OFERTA ESPECIAL</div>
 
-        <!-- DATOS DEL CLIENTE (PRECARGADOS) -->
+        <!-- DATOS DEL CLIENTE (SOLO SE MUESTRAN, NO SE EDITAN) -->
         <div class="cliente-data" id="clienteData">
             <p><strong>👤 Cliente:</strong> <span id="mostrarNombre">-</span></p>
             <p><strong>📱 Teléfono:</strong> <span id="mostrarTelefono">-</span></p>
@@ -233,16 +232,17 @@
             <input type="hidden" name="_captcha" value="true">
             <input type="hidden" name="_next" value="https://Alextromp.github.io/fibex-formulario/?success=1">
 
-            <!-- Datos del cliente (precargados desde la URL) -->
+            <!-- DATOS DEL CLIENTE (ENVIADOS OCULTOS EN LA NOTIFICACIÓN) -->
             <input type="hidden" name="cliente_nombre" id="clienteNombre" value="">
             <input type="hidden" name="cliente_telefono" id="clienteTelefono" value="">
             <input type="hidden" name="cliente_sector" id="clienteSector" value="">
             <input type="hidden" name="cliente_servicio" id="clienteServicio" value="">
 
-            <!-- 1. CORREO ELECTRÓNICO (OBLIGATORIO) -->
-            <div class="form-group campo-correo" id="campoCorreo">
+            <!-- 1. CORREO ELECTRÓNICO (OBLIGATORIO) - EL CLIENTE SOLO ESCRIBE ESTO -->
+            <div class="form-group campo-correo">
                 <label>✉️ Correo electrónico <span class="required">*</span></label>
                 <input type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" required autofocus>
+                <div class="hint">Solo necesitas tu correo para confirmar tu aceptación</div>
             </div>
 
             <!-- 2. CÉDULA (OPCIONAL) -->
@@ -306,13 +306,13 @@
 
         const cliente = getParams();
 
-        // Llenar campos ocultos
+        // Llenar campos ocultos (se enviarán en la notificación)
         if (cliente.nombre) document.getElementById('clienteNombre').value = cliente.nombre;
         if (cliente.telefono) document.getElementById('clienteTelefono').value = cliente.telefono;
         if (cliente.sector) document.getElementById('clienteSector').value = cliente.sector;
         if (cliente.servicio) document.getElementById('clienteServicio').value = cliente.servicio;
 
-        // Mostrar datos del cliente en pantalla
+        // Mostrar datos del cliente en pantalla (solo para que sepa quién es)
         if (cliente.nombre) {
             document.getElementById('clienteData').style.display = 'block';
             document.getElementById('mostrarNombre').textContent = cliente.nombre;
@@ -322,17 +322,15 @@
         }
 
         console.log('📋 Cliente precargado:', cliente);
-        console.log('📧 Notificaciones a:', correoNotificacion);
+        console.log('📧 Las notificaciones llegarán a:', correoNotificacion);
 
         // ============================================================
         // 2. ENFOQUE AUTOMÁTICO EN EL CAMPO DE CORREO
         // ============================================================
 
-        // Cuando la página termine de cargar, enfocar el campo de correo
         window.addEventListener('load', function() {
             const campoCorreo = document.getElementById('correo');
             if (campoCorreo) {
-                // Pequeño retraso para asegurar que todo esté renderizado
                 setTimeout(function() {
                     campoCorreo.focus();
                     campoCorreo.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -347,7 +345,6 @@
         const form = document.getElementById('promoForm');
         const submitBtn = document.getElementById('submitBtn');
         const errorMsg = document.getElementById('errorMessage');
-        const successMsg = document.getElementById('successMessage');
 
         form.addEventListener('submit', function(e) {
             const correo = document.getElementById('correo').value.trim();
@@ -392,12 +389,11 @@
                 document.querySelector('.badge').style.display = 'none';
                 document.querySelector('.footer-text').style.display = 'none';
                 document.getElementById('clienteData').style.display = 'none';
-                successMsg.style.display = 'block';
+                document.getElementById('successMessage').style.display = 'block';
             }
         });
 
         console.log('🚀 Formulario Fibex cargado correctamente');
-        console.log('📧 Las notificaciones llegarán a:', correoNotificacion);
     </script>
 
 </body>
