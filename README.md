@@ -1,9 +1,9 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fibex - Aceptación de Promoción</title>
+    <title>Prueba - Envío a Arelis Albes</title>
     <style>
         * {
             margin: 0;
@@ -13,26 +13,26 @@
         }
 
         body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0033a0 0%, #0066cc 100%);
+            background: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
         .container {
             background: white;
-            max-width: 520px;
+            max-width: 650px;
             width: 100%;
-            padding: 40px 35px;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            text-align: center;
         }
 
         .logo {
-            text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 25px;
         }
 
         .logo h1 {
@@ -48,319 +48,385 @@
         .logo p {
             color: #666;
             font-size: 14px;
-            margin-top: 4px;
         }
 
-        .form-group {
+        .cliente-info {
+            background: #f8f9fa;
+            padding: 18px 20px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            text-align: left;
         }
 
-        .form-group label {
-            display: block;
-            font-weight: 600;
+        .cliente-info p {
+            margin: 4px 0;
             font-size: 14px;
             color: #333;
-            margin-bottom: 6px;
         }
 
-        .form-group label .required {
-            color: #e74c3c;
-            margin-left: 2px;
+        .cliente-info strong {
+            color: #0033a0;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: border 0.3s;
-            background: #f8f9fa;
+        .mensaje-preview {
+            background: #f0f2f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 1px solid #ddd;
         }
 
-        .form-group input:focus {
-            border-color: #0033a0;
-            outline: none;
-            background: white;
-        }
-
-        .form-group .hint {
-            font-size: 12px;
+        .mensaje-preview .label {
+            font-size: 11px;
             color: #888;
-            margin-top: 4px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: #0033a0;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
+            text-transform: uppercase;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 10px;
+            display: block;
             letter-spacing: 1px;
         }
 
-        .btn-submit:hover {
-            background: #002277;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,51,160,0.3);
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
         }
 
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        .footer-text {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #888;
-        }
-
-        .footer-text strong {
-            color: #0033a0;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #ffcc00;
-            color: #0033a0;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
-        .error-message {
-            display: none;
-            background: #fee;
-            color: #c0392b;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            border-left: 4px solid #c0392b;
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        .success-message .icon {
-            font-size: 64px;
-            margin-bottom: 15px;
-        }
-
-        .success-message h2 {
-            color: #27ae60;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .success-message p {
-            color: #555;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .loading {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        /* Estilo del botón azul "SÍ" */
-        .btn-aceptar {
-            display: inline-block;
-            width: 100%;
-            padding: 16px;
-            background: #0033a0;
-            color: white;
-            font-weight: 700;
-            font-size: 18px;
-            text-align: center;
+        .btn {
+            padding: 14px 28px;
             border: none;
             border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            letter-spacing: 1px;
+            flex: 1;
+            min-width: 180px;
         }
 
-        .btn-aceptar:hover {
+        .btn-wsp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-wsp:hover {
+            background: #1da851;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37,211,102,0.3);
+        }
+
+        .btn-copy {
+            background: #0033a0;
+            color: white;
+        }
+
+        .btn-copy:hover {
             background: #002277;
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0,51,160,0.3);
         }
 
-        .btn-aceptar:active {
-            transform: translateY(0);
+        .btn-back {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        .btn-link {
+            background: #e67e22;
+            color: white;
+        }
+
+        .btn-link:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #27ae60;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 999;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(50px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .instrucciones {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 13px;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+
+        .instrucciones strong {
+            color: #0033a0;
+        }
+
+        .enlace-info {
+            background: #eaf4ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #0033a0;
+            border: 1px solid #b3d4ff;
+            word-break: break-all;
+        }
+
+        .enlace-info strong {
+            color: #0033a0;
         }
 
         @media (max-width: 480px) {
-            .container { padding: 25px 20px; }
-            .logo h1 { font-size: 26px; }
+            .container { padding: 20px; }
+            .btn { min-width: 100%; }
+            .mensaje-preview { font-size: 12px; max-height: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="formContainer">
+<div class="container">
 
-        <!-- LOGO -->
-        <div class="logo">
-            <h1>FIBEX<span>+</span></h1>
-            <p>Confirma tu interés en la promoción</p>
-        </div>
-
-        <div class="badge">🎁 OFERTA ESPECIAL</div>
-
-        <!-- FORMULARIO -->
-        <form id="promoForm" action="https://formsubmit.co/tromp.admicc14@gmail.com" method="POST">
-
-            <!-- Campos ocultos -->
-            <input type="hidden" name="_captcha" value="true">
-            <input type="hidden" name="_next" value="https://tusuario.github.io/fibex-formulario/?success=1">
-
-            <!-- Datos del cliente (precargados desde la URL) -->
-            <input type="hidden" name="cliente_nombre" id="clienteNombre" value="">
-            <input type="hidden" name="cliente_telefono" id="clienteTelefono" value="">
-            <input type="hidden" name="cliente_sector" id="clienteSector" value="">
-            <input type="hidden" name="cliente_servicio" id="clienteServicio" value="">
-
-            <!-- 1. CORREO ELECTRÓNICO (OBLIGATORIO) -->
-            <div class="form-group">
-                <label>✉️ Correo electrónico <span class="required">*</span></label>
-                <input type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" required>
-            </div>
-
-            <!-- 2. CÉDULA (OPCIONAL) -->
-            <div class="form-group">
-                <label>🆔 Cédula <span style="color:#888;font-weight:400;">(opcional)</span></label>
-                <input type="text" name="cedula" id="cedula" placeholder="V-12345678">
-                <div class="hint">Puedes dejarlo en blanco si prefieres</div>
-            </div>
-
-            <!-- 3. UBICACIÓN (OPCIONAL) -->
-            <div class="form-group">
-                <label>📍 Ubicación <span style="color:#888;font-weight:400;">(opcional)</span></label>
-                <input type="text" name="ubicacion" id="ubicacion" placeholder="Ej: Valencey, calle 1, casa 18">
-                <div class="hint">Comparte tu ubicación por WhatsApp o escríbela aquí</div>
-            </div>
-
-            <!-- BOTÓN DE ENVÍO - AZUL CON TEXTO BLANCO EN BOLD -->
-            <button type="submit" class="btn-submit" id="submitBtn">✅ ¡Sí, acepto la promoción!</button>
-
-            <!-- MENSAJE DE ERROR -->
-            <div class="error-message" id="errorMessage">⚠️ Por favor completa los campos obligatorios.</div>
-
-        </form>
-
-        <div class="footer-text">
-            Al enviar, aceptas que <strong>Fibex</strong> use tus datos para contactarte.<br>
-            Recibirás un correo de confirmación en los próximos minutos.
-        </div>
-
-        <!-- MENSAJE DE ÉXITO -->
-        <div class="success-message" id="successMessage">
-            <div class="icon">🎉</div>
-            <h2>¡Gracias por confiar en Fibex!</h2>
-            <p>Hemos recibido tu aceptación. En los próximos minutos un asesor se pondrá en contacto contigo para formalizar tu cambio.</p>
-            <br>
-            <p style="font-size:13px;color:#888;">📧 Se ha enviado una notificación a nuestro equipo.</p>
-        </div>
-
+    <!-- LOGO -->
+    <div class="logo">
+        <h1>FIBEX<span>+</span></h1>
+        <p>Prueba de envío - Arelis Albes</p>
     </div>
 
-    <script>
-        // ============================================================
-        // 1. CAPTURAR DATOS DEL CLIENTE DESDE LA URL
-        // ============================================================
+    <!-- ENLACE DEL FORMULARIO -->
+    <div class="enlace-info">
+        <strong>🔗 Enlace del formulario:</strong><br>
+        <span id="enlaceFormulario">Cargando...</span>
+    </div>
 
-        function getParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                nombre: params.get('nombre') || '',
-                telefono: params.get('telefono') || '',
-                sector: params.get('sector') || '',
-                servicio: params.get('servicio') || ''
-            };
+    <!-- DATOS DEL CLIENTE -->
+    <div class="cliente-info">
+        <p><strong>👤 Nombre:</strong> Arelis Albes</p>
+        <p><strong>📱 Teléfono:</strong> 0414-4072340</p>
+        <p><strong>📍 Sector:</strong> Balencey</p>
+        <p><strong>📡 Servicio actual:</strong> Sin servicio</p>
+        <p><strong>🆔 ID:</strong> #8</p>
+    </div>
+
+    <!-- VISTA PREVIA DEL MENSAJE -->
+    <div class="mensaje-preview" id="mensajePreview">
+        <span class="label">📨 VISTA PREVIA DEL MENSAJE</span>
+        <span id="mensajeTexto">Cargando mensaje...</span>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="btn-group">
+        <button class="btn btn-wsp" onclick="enviarWhatsApp()">📱 Enviar WhatsApp</button>
+        <button class="btn btn-copy" onclick="copiarMensaje()">📋 Copiar mensaje</button>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-link" onclick="abrirFormulario()">🔗 Abrir formulario</button>
+        <button class="btn btn-back" onclick="window.close()">⬅️ Cerrar</button>
+    </div>
+
+    <!-- INSTRUCCIONES -->
+    <div class="instrucciones">
+        <strong>📸 IMPORTANTE:</strong> Al enviar por WhatsApp, <strong>adjunta las 4 imágenes</strong> en este orden:<br>
+        1. Fachada de la tienda<br>
+        2. Plan XFULL (1.5GB → $55 + IVA)<br>
+        3. Plan FULL (800~1GB → $45 + IVA)<br>
+        4. Plan FIBEX TELECOM (Internet + TV + Seguro)
+    </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ Mensaje copiado al portapapeles</div>
+
+<script>
+    // ============================================================
+    // CONFIGURACIÓN - ENLACE REAL DEL FORMULARIO
+    // ============================================================
+
+    const usuarioGitHub = "Alextromp";
+    const enlaceBase = `https://${usuarioGitHub}.github.io/fibex-formulario/`;
+
+    // ============================================================
+    // DATOS DEL CLIENTE
+    // ============================================================
+
+    const cliente = {
+        id: 8,
+        nombre: "Arelis Albes",
+        telefono: "0414-4072340",
+        sector: "Balencey",
+        servicio: "Sin servicio"
+    };
+
+    // ============================================================
+    // GENERAR ENLACE DEL FORMULARIO PARA EL CLIENTE
+    // ============================================================
+
+    function generarEnlaceCliente(cliente) {
+        const params = new URLSearchParams({
+            nombre: cliente.nombre,
+            telefono: cliente.telefono,
+            sector: cliente.sector,
+            servicio: cliente.servicio
+        });
+        return `${enlaceBase}?${params.toString()}`;
+    }
+
+    const enlaceCliente = generarEnlaceCliente(cliente);
+
+    // ============================================================
+    // GENERAR MENSAJE
+    // ============================================================
+
+    function generarMensaje(cliente) {
+        const nombre = cliente.nombre.split(' ')[0];
+        const enlace = generarEnlaceCliente(cliente);
+        return `*¡${nombre} llegó el momento de cambiar!*
+
+En el mes de papá y del mundial te ponemos a ganar.
+
+Con la factura de tu servicio de Internet actual te damos la bienvenida a lo grande.
+
+Activando uno de estos planes tendrás instalación *gratis* (ONT estándar + tu router) o 75% de descuento en nuestra full equipo (ONT con WiFi 6 Mesh lista para navegar).
+
+Además disfrutas del mes de papá y del mundial sin más nada que pagar.
+
+Y para demostrarte lo mucho que valoramos tu decisión de cambiar, Julio y Agosto te sale a la mitad.
+
+*¡Llegó tu momento de cambiar!*
+
+📍 Ubicación de la tienda:
+https://share.google/E6tdLCtQ8FOjMWg8i
+
+✅ SÍ - Acepto la promoción
+👉 ${enlace} 👈
+(CAMBIATE YA)
+
+*¡Vente con nosotros!*
+
+Listos para darte la bienvenida...`;
+    }
+
+    // ============================================================
+    // MOSTRAR MENSAJE EN PANTALLA
+    // ============================================================
+
+    function mostrarMensaje() {
+        const mensaje = generarMensaje(cliente);
+        document.getElementById('mensajeTexto').textContent = mensaje;
+        document.getElementById('enlaceFormulario').textContent = enlaceCliente;
+    }
+
+    // ============================================================
+    // ENVIAR POR WHATSAPP
+    // ============================================================
+
+    function enviarWhatsApp() {
+        const mensaje = generarMensaje(cliente);
+        const telefono = cliente.telefono.replace(/[^0-9+]/g, '');
+        const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+        mostrarToast(`📱 WhatsApp abierto para ${cliente.nombre}`);
+    }
+
+    // ============================================================
+    // COPIAR MENSAJE
+    // ============================================================
+
+    function copiarMensaje() {
+        const mensaje = generarMensaje(cliente);
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(mensaje).then(() => {
+                mostrarToast('✅ Mensaje copiado al portapapeles');
+            }).catch(() => {
+                copiarManual(mensaje);
+            });
+        } else {
+            copiarManual(mensaje);
         }
+    }
 
-        const cliente = getParams();
+    function copiarManual(mensaje) {
+        const textarea = document.createElement('textarea');
+        textarea.value = mensaje;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        mostrarToast('✅ Mensaje copiado al portapapeles');
+    }
 
-        // Llenar campos ocultos
-        if (cliente.nombre) document.getElementById('clienteNombre').value = cliente.nombre;
-        if (cliente.telefono) document.getElementById('clienteTelefono').value = cliente.telefono;
-        if (cliente.sector) document.getElementById('clienteSector').value = cliente.sector;
-        if (cliente.servicio) document.getElementById('clienteServicio').value = cliente.servicio;
+    // ============================================================
+    // ABRIR FORMULARIO
+    // ============================================================
 
-        console.log('📋 Cliente precargado:', cliente);
+    function abrirFormulario() {
+        window.open(enlaceCliente, '_blank');
+        mostrarToast('🔗 Abriendo formulario...');
+    }
 
-        // ============================================================
-        // 2. VALIDACIÓN DEL FORMULARIO
-        // ============================================================
+    // ============================================================
+    // TOAST
+    // ============================================================
 
-        const form = document.getElementById('promoForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const errorMsg = document.getElementById('errorMessage');
-        const successMsg = document.getElementById('successMessage');
+    function mostrarToast(mensaje, tipo = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = mensaje;
+        toast.className = 'toast' + (tipo === 'error' ? ' error' : '');
+        toast.style.display = 'block';
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => {
+            toast.style.display = 'none';
+        }, 4000);
+    }
 
-        form.addEventListener('submit', function(e) {
-            const correo = document.getElementById('correo').value.trim();
-            if (!correo) {
-                e.preventDefault();
-                errorMsg.style.display = 'block';
-                errorMsg.textContent = '⚠️ El correo electrónico es obligatorio.';
-                document.getElementById('correo').focus();
-                return;
-            }
+    // ============================================================
+    // INICIALIZAR
+    // ============================================================
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(correo)) {
-                e.preventDefault();
-                errorMsg.style.display = 'block';
-                errorMsg.textContent = '⚠️ Ingresa un correo electrónico válido (ejemplo@correo.com).';
-                document.getElementById('correo').focus();
-                return;
-            }
-
-            errorMsg.style.display = 'none';
-            submitBtn.textContent = '⏳ Enviando...';
-            submitBtn.classList.add('loading');
-        });
-
-        document.getElementById('correo').addEventListener('input', function() {
-            errorMsg.style.display = 'none';
-        });
-
-        document.getElementById('cedula').addEventListener('input', function() {
-            errorMsg.style.display = 'none';
-        });
-
-        // ============================================================
-        // 3. DETECTAR ENVÍO EXITOSO
-        // ============================================================
-
-        window.addEventListener('load', function() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('success') === '1') {
-                document.getElementById('promoForm').style.display = 'none';
-                document.querySelector('.badge').style.display = 'none';
-                document.querySelector('.footer-text').style.display = 'none';
-                successMsg.style.display = 'block';
-            }
-        });
-
-        console.log('🚀 Formulario Fibex cargado correctamente');
-    </script>
+    mostrarMensaje();
+    console.log('🚀 Prueba para Arelis Albes cargada');
+    console.log('📋 Cliente:', cliente);
+    console.log('🔗 Enlace del formulario:', enlaceCliente);
+    console.log('📨 Mensaje:', generarMensaje(cliente));
+</script>
 
 </body>
-</html> fibex-formulario
-Formulario de aceptación de promociones Fibex
+</html>
