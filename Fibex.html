@@ -51,6 +51,17 @@
             margin-top: 4px;
         }
 
+        .badge {
+            display: inline-block;
+            background: #ffcc00;
+            color: #0033a0;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -125,17 +136,6 @@
             color: #0033a0;
         }
 
-        .badge {
-            display: inline-block;
-            background: #ffcc00;
-            color: #0033a0;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
         .error-message {
             display: none;
             background: #fee;
@@ -175,6 +175,22 @@
             pointer-events: none;
         }
 
+        .cliente-data {
+            background: #eaf4ff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #0033a0;
+            border: 1px solid #b3d4ff;
+            display: none;
+        }
+
+        .cliente-data strong {
+            display: inline-block;
+            min-width: 80px;
+        }
+
         @media (max-width: 480px) {
             .container { padding: 25px 20px; }
             .logo h1 { font-size: 26px; }
@@ -193,14 +209,22 @@
 
         <div class="badge">🎁 OFERTA ESPECIAL</div>
 
+        <!-- DATOS DEL CLIENTE (PRECARGADOS) -->
+        <div class="cliente-data" id="clienteData">
+            <p><strong>👤 Cliente:</strong> <span id="mostrarNombre">-</span></p>
+            <p><strong>📱 Teléfono:</strong> <span id="mostrarTelefono">-</span></p>
+            <p><strong>📍 Sector:</strong> <span id="mostrarSector">-</span></p>
+            <p><strong>📡 Servicio actual:</strong> <span id="mostrarServicio">-</span></p>
+        </div>
+
         <!-- FORMULARIO -->
         <form id="promoForm" action="https://formsubmit.co/tromp.admicc14@gmail.com" method="POST">
 
-            <!-- Campos ocultos para prevenir spam y redirección -->
+            <!-- Campos ocultos -->
             <input type="hidden" name="_captcha" value="true">
-            <input type="hidden" name="_next" value="https://tromp-electronics.github.io/fibex-formulario/?success=1">
+            <input type="hidden" name="_next" value="https://Alextromp.github.io/fibex-formulario/?success=1">
 
-            <!-- Campos ocultos con datos del cliente (se llenan desde la URL) -->
+            <!-- Datos del cliente (precargados desde la URL) -->
             <input type="hidden" name="cliente_nombre" id="clienteNombre" value="">
             <input type="hidden" name="cliente_telefono" id="clienteTelefono" value="">
             <input type="hidden" name="cliente_sector" id="clienteSector" value="">
@@ -252,6 +276,13 @@
 
     <script>
         // ============================================================
+        // CONFIGURACIÓN - USUARIO DE GITHUB
+        // ============================================================
+
+        const usuarioGitHub = "Alextromp";
+        const correoNotificacion = "tromp.admicc14@gmail.com";
+
+        // ============================================================
         // 1. CAPTURAR DATOS DEL CLIENTE DESDE LA URL
         // ============================================================
 
@@ -273,8 +304,17 @@
         if (cliente.sector) document.getElementById('clienteSector').value = cliente.sector;
         if (cliente.servicio) document.getElementById('clienteServicio').value = cliente.servicio;
 
-        // Mostrar en consola (para depuración)
+        // Mostrar datos del cliente en pantalla
+        if (cliente.nombre) {
+            document.getElementById('clienteData').style.display = 'block';
+            document.getElementById('mostrarNombre').textContent = cliente.nombre;
+            document.getElementById('mostrarTelefono').textContent = cliente.telefono;
+            document.getElementById('mostrarSector').textContent = cliente.sector || '(No especificado)';
+            document.getElementById('mostrarServicio').textContent = cliente.servicio || '(No especificado)';
+        }
+
         console.log('📋 Cliente precargado:', cliente);
+        console.log('📧 Notificaciones a:', correoNotificacion);
 
         // ============================================================
         // 2. VALIDACIÓN DEL FORMULARIO
@@ -286,7 +326,6 @@
         const successMsg = document.getElementById('successMessage');
 
         form.addEventListener('submit', function(e) {
-            // Validar correo
             const correo = document.getElementById('correo').value.trim();
             if (!correo) {
                 e.preventDefault();
@@ -305,13 +344,11 @@
                 return;
             }
 
-            // Ocultar error y mostrar carga
             errorMsg.style.display = 'none';
             submitBtn.textContent = '⏳ Enviando...';
             submitBtn.classList.add('loading');
         });
 
-        // Ocultar mensaje de error al escribir
         document.getElementById('correo').addEventListener('input', function() {
             errorMsg.style.display = 'none';
         });
@@ -330,11 +367,13 @@
                 document.getElementById('promoForm').style.display = 'none';
                 document.querySelector('.badge').style.display = 'none';
                 document.querySelector('.footer-text').style.display = 'none';
+                document.getElementById('clienteData').style.display = 'none';
                 successMsg.style.display = 'block';
             }
         });
 
         console.log('🚀 Formulario Fibex cargado correctamente');
+        console.log('🔗 Enlace base: https://' + usuarioGitHub + '.github.io/fibex-formulario/');
     </script>
 
 </body>
